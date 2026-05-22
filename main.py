@@ -8,6 +8,13 @@ import asyncio
 import os
 
 token = os.getenv("DISCORDMUSIC_TOKEN")
+import os
+
+cookie_data = os.getenv("COOKIE_DATA")
+
+if cookie_data:
+    with open("cookies.txt", "w") as f:
+        f.write(cookie_data)
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
