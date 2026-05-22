@@ -4,3 +4,4 @@ yt-dlp
 PyNaCl
 davey
 ffmpeg
+Flask
