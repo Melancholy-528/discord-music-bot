@@ -2,13 +2,33 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import yt_dlp
+from flask import Flask
 import asyncio
 import os
+
+
+load_dotenv()
 
 token = os.getenv("DISCORDMUSIC_TOKEN")
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is alive"
+
+@app.route("/ping")
+def ping():
+    return "OK"
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+Thread(target=run_web, daemon=True).start()
 
 # ---------------- GLOBAL STATE ---------------- #
 
