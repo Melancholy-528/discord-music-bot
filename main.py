@@ -46,6 +46,10 @@ YDL_OPTIONS = {
     "noplaylist": True,
     "default_search": "ytsearch1",
     "quiet": True,
+    "cookiefile": "cookies.txt",
+    "http_headers": {
+        "User-Agent": "Mozilla/5.0"
+    }
 }
 
 FFMPEG_OPTIONS = {
