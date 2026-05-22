@@ -42,14 +42,36 @@ player_message = None
 # ---------------- YTDLP + FFMPEG ---------------- #
 
 YDL_OPTIONS = {
-    "format": "bestaudio/best",
+    "format": "bestaudio[ext=m4a]/bestaudio/best",
     "noplaylist": True,
     "default_search": "ytsearch1",
     "quiet": True,
+    "extract_flat": False,
+
     "cookiefile": "cookies.txt",
+
     "http_headers": {
-        "User-Agent": "Mozilla/5.0"
-    }
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 "
+            "(KHTML, like Gecko) "
+            "Chrome/123.0 Safari/537.36"
+        )
+    },
+
+    "extractor_args": {
+        "youtube": {
+            "player_client": [
+                "android",
+                "web",
+                "tv"
+            ]
+        }
+    },
+
+    "retries": 10,
+    "fragment_retries": 10,
+    "skip_unavailable_fragments": True
 }
 
 FFMPEG_OPTIONS = {
@@ -145,7 +167,7 @@ class MusicControls(discord.ui.View):
             current_song["vc_state"] = "playing"
 
         await self.update(interaction)
-        await interaction.response.defer()
+        await interaction.followup.send(...)
 
     # ---------------- REPEAT ---------------- #
 
@@ -199,7 +221,7 @@ class MusicControls(discord.ui.View):
             vc.source.volume = volume_level
 
         await self.update(interaction)
-        await interaction.response.defer()
+        
 
     @discord.ui.button(emoji="🔊", style=discord.ButtonStyle.secondary)
     async def vol_up(self, interaction, button):
@@ -213,7 +235,7 @@ class MusicControls(discord.ui.View):
             vc.source.volume = volume_level
 
         await self.update(interaction)
-        await interaction.response.defer()
+        await interaction.followup.send(...)
 
     # ---------------- STOP ---------------- #
 @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.danger)
