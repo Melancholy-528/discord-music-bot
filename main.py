@@ -6,9 +6,6 @@ from flask import Flask
 import asyncio
 import os
 
-
-load_dotenv()
-
 token = os.getenv("DISCORDMUSIC_TOKEN")
 
 intents = discord.Intents.default()
